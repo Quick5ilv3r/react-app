@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                expression { env.BRANCH_NAME == 'main' }
+                branch 'main'
             }
             steps {
                 script {
@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                expression { env.BRANCH_NAME == 'main' }
+                branch 'main'
             }
             steps {
                 script {
@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Deploy To Staging') {
             when {
-                expression { env.BRANCH_NAME == 'main' }
+                branch 'main'
             }
             steps {
                 script {
@@ -69,10 +69,10 @@ pipeline {
         }
         stage('Deploy To Production') {
             when {
-                expression { env.BRANCH_NAME == 'main' }
+                branch 'main'
             }
             steps {
-                input 'Does the staging environment look OK? Did you get a 200 response?'
+                input 'Does the staging environment look OK? Did You get 200 response?'
                 milestone(1)
                 script {
                     sh "docker pull quick5ilv3r/react-app:${env.BUILD_NUMBER}"
